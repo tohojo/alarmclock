@@ -1,0 +1,40 @@
+#!/usr/bin/python
+# vim:fileencoding=utf8 filetype=python
+
+import sys, xmlrpclib
+proxy = xmlrpclib.ServerProxy("http://10.42.3.2:8000")
+
+if len(sys.argv) < 2:
+    (hour, minute) = proxy.time()
+    enabled = proxy.enabled()
+    if enabled:
+        set = "Enabled"
+    else:
+        set = "Disabled"
+    
+
+    print "Alarm time: %d:%02d (%s)" % (hour, minute, set)
+    sys.exit(0)
+
+if sys.argv[1] in ('-h', '-?', '--help'):
+    print "Usage: %s <hh:mm>" % sys.argv[0].split("/")[-1]
+    sys.exit(0)
+
+if sys.argv[1].lower() in ("disable", "off"):
+    print "Disabling alarm:", proxy.enable(False)
+    sys.exit(0)
+
+time = sys.argv[1].split(":")
+if len(time) != 2:
+    print "Invalid time: %s" % sys.argv[1]
+    sys.exit(1)
+
+try:
+#    print "Setting time:", proxy.set(int(time[0]), int(time[1])), 
+#    print "Enabling alarm:", proxy.enable(True)
+#    print "Alarm set at %s" % ":".join(time)
+    proxy.set(int(time[0]), int(time[1])), 
+    proxy.enable(True)
+    sys.exit(0)
+except KeyboardInterrupt:
+    sys.exit(1)

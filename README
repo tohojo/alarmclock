@@ -1,0 +1,10 @@
+This is a simple alarm clock, used for Wake-on-LAN'ing a media player
+computer. It consists of a "clockserver" that runs in the background on
+some always-on system, and a plasmoid to remote control setting the alarm
+clock.
+
+There's also a command line script to set the alarm.
+
+Copyright Toke Høiland-Jørgensen
+
+Licensed under GPLv3. See http://www.gnu.org/licenses/gpl.html
